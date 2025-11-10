@@ -11,7 +11,8 @@ export default function Codeqr() {
   const getInitials = () => nom.trim().slice(0, 2).toUpperCase();
 
   useEffect(() => {
-    if (!condition || !qrRef.current) return;
+    const el = qrRef.current;
+    if (!condition || !el) return;
 
     // Mise à jour ou création du QR code
     if (qrCode.current) {
@@ -23,7 +24,7 @@ export default function Codeqr() {
       }
     }
 
-    qrRef.current.innerHTML = "";
+    el.innerHTML = "";
     qrCode.current = new QRCodeStyling({
       width: 300,
       height: 300,
@@ -43,12 +44,19 @@ export default function Codeqr() {
         color: "#ffffff"
       }
     });
-    qrCode.current.append(qrRef.current);
+    qrCode.current.append(el);
+
+    return () => {
+      // Utiliser la référence locale capturée pour la cleanup
+      if (el) el.innerHTML = "";
+    };
   }, [condition, lien]);
 
+  // Cleanup global à l'unmount
   useEffect(() => {
+    const el = qrRef.current;
     return () => {
-      if (qrRef.current) qrRef.current.innerHTML = "";
+      if (el) el.innerHTML = "";
       qrCode.current = null;
     };
   }, []);
