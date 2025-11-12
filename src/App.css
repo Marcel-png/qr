@@ -36,7 +36,35 @@
     transform: rotate(360deg);
   }
 }
-/* Background animations removed */
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(270deg, #ff6ec4, #7873f5, #4adede, #ff9a8b);
+  background-size: 600% 600%;
+  animation: gradientFloat 20s ease-in-out infinite;
+}
+
+/* Animation fluide */
+@keyframes gradientFloat {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
 
 
 
